@@ -93,16 +93,33 @@ photo.addEventListener('change',()=>{
  }
 });
 
+
 function generate(){
- const prompt=document.getElementById('prompt').value;
- const status=document.getElementById('status');
+ const prompt = document.getElementById('prompt').value;
+ const photo = document.getElementById('photo').files[0];
+ const status = document.getElementById('status');
+
  if(!prompt.trim()){
-  status.textContent='Please enter a video prompt!';
-  return;
+   status.textContent = 'Please enter your prompt!';
+   return;
  }
- status.textContent=
- 'Your project is ready for AI connection! 🚀';
+
+ const tab = window.open('https://wan2.video/', '_blank');
+
+ if(!tab){
+   status.textContent = 'Please allow pop-ups and try again.';
+   return;
+ }
+
+ if(navigator.clipboard){
+   navigator.clipboard.writeText(prompt).then(()=>{
+     status.textContent = photo
+       ? 'Prompt copied! Upload your image on the video generator.'
+       : 'Prompt copied! Paste it into the video generator.';
+   }).catch(()=>{
+     status.textContent = 'Please copy your prompt manually.';
+   });
+ }else{
+   status.textContent = 'Please copy your prompt manually.';
+ }
 }
-</script>
-</body>
-</html>
