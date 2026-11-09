@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Myanmar Flow AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#090d19;color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ padding:20px;background:#11182b;
+ display:flex;justify-content:space-between;
+ align-items:center;border-bottom:1px solid #29334b;
+}
+.logo{font-size:21px;font-weight:bold;color:#a78bfa}
+main{max-width:750px;margin:35px auto;padding:18px}
+h1{text-align:center;font-size:30px}
+.sub{text-align:center;color:#aab2c5}
+.card{
+ background:#151d30;padding:20px;
+ border:1px solid #303b56;
+ border-radius:16px;margin-top:25px;
+}
+label{display:block;margin:15px 0 9px}
+textarea,input{
+ width:100%;padding:14px;border-radius:10px;
+ background:#0b1222;color:white;
+ border:1px solid #38445f;font-size:15px;
+}
+textarea{height:120px;resize:vertical}
+button{
+ width:100%;padding:15px;margin-top:15px;
+ border:0;border-radius:10px;
+ background:linear-gradient(90deg,#7c3aed,#2563eb);
+ color:white;font-size:16px;font-weight:bold;
+}
+button:active{opacity:.8}
+#preview{
+ width:100%;margin-top:15px;border-radius:12px;
+ display:none;
+}
+#status{color:#a78bfa;text-align:center;margin-top:15px}
+footer{text-align:center;color:#77839d;padding:30px}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo">✦ MYANMAR FLOW AI</div>
+ <div>🌐 MY / EN</div>
+</header>
+<main>
+ <h1>AI Video Creator ✨</h1>
+ <p class="sub">သင့်စိတ်ကူးကို Video အဖြစ် ဖန်တီးလိုက်ပါ</p>
+
+ <div class="card">
+  <h3>🎬 Create Your Video</h3>
+
+  <label>Video Prompt / ဗီဒီယိုအကြောင်းအရာ</label>
+  <textarea id="prompt"
+  placeholder="Describe your video... / မြန်မာလို ရေးနိုင်ပါတယ်"></textarea>
+
+  <label>Upload Image / ဓာတ်ပုံထည့်ရန်</label>
+  <input type="file" id="photo" accept="image/*">
+
+  <img id="preview" alt="Image preview">
+
+  <label>Video Style</label>
+  <select id="style" style="width:100%;padding:13px;border-radius:10px;background:#0b1222;color:white">
+   <option>Cinematic</option>
+   <option>Realistic</option>
+   <option>Anime</option>
+   <option>3D Animation</option>
+  </select>
+
+  <button onclick="generate()">✨ Generate Video</button>
+  <p id="status"></p>
+ </div>
+</main>
+<footer>MYANMAR FLOW AI © 2026</footer>
+
+<script>
+const photo=document.getElementById('photo');
+photo.addEventListener('change',()=>{
+ const file=photo.files[0];
+ if(file){
+  const img=document.getElementById('preview');
+  img.src=URL.createObjectURL(file);
+  img.style.display='block';
+ }
+});
+
+function generate(){
+ const prompt=document.getElementById('prompt').value;
+ const status=document.getElementById('status');
+ if(!prompt.trim()){
+  status.textContent='Please enter a video prompt!';
+  return;
+ }
+ status.textContent=
+ 'Your project is ready for AI connection! 🚀';
+}
+</script>
+</body>
+</html>
