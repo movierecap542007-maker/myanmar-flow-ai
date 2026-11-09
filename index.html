@@ -82,44 +82,43 @@ footer{text-align:center;color:#77839d;padding:30px}
 </main>
 <footer>MYANMAR FLOW AI © 2026</footer>
 
-<script>
-const photo=document.getElementById('photo');
-photo.addEventListener('change',()=>{
- const file=photo.files[0];
- if(file){
-  const img=document.getElementById('preview');
-  img.src=URL.createObjectURL(file);
-  img.style.display='block';
- }
+const photo = document.getElementById('photo');
+
+photo.addEventListener('change', () => {
+  const file = photo.files[0];
+  if (file) {
+    const img = document.getElementById('preview');
+    img.src = URL.createObjectURL(file);
+    img.style.display = 'block';
+  }
 });
 
+function generate() {
+  const prompt = document.getElementById('prompt').value.trim();
+  const file = photo.files[0];
+  const status = document.getElementById('status');
 
-function generate(){
- const prompt = document.getElementById('prompt').value;
- const photo = document.getElementById('photo').files[0];
- const status = document.getElementById('status');
+  if (!prompt) {
+    status.textContent = 'Please enter your prompt!';
+    return;
+  }
 
- if(!prompt.trim()){
-   status.textContent = 'Please enter your prompt!';
-   return;
- }
+  // Copy prompt first
+  const openWan = () => {
+    status.textContent = 'Opening AI Video Generator...';
 
- const tab = window.open('https://wan2.video/', '_blank');
+    // Open directly from button click
+    window.location.href = 'https://wan2.video/';
+  };
 
- if(!tab){
-   status.textContent = 'Please allow pop-ups and try again.';
-   return;
- }
-
- if(navigator.clipboard){
-   navigator.clipboard.writeText(prompt).then(()=>{
-     status.textContent = photo
-       ? 'Prompt copied! Upload your image on the video generator.'
-       : 'Prompt copied! Paste it into the video generator.';
-   }).catch(()=>{
-     status.textContent = 'Please copy your prompt manually.';
-   });
- }else{
-   status.textContent = 'Please copy your prompt manually.';
- }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(prompt)
+      .then(openWan)
+      .catch(() => {
+        status.textContent = 'Copy this prompt and open Wan Video.';
+      });
+  } else {
+    status.textContent =
+      'Please copy your prompt first: ' + prompt;
+  }
 }
